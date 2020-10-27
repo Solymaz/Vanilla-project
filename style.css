@@ -1,5 +1,8 @@
+body {
+  font-family: "Varela Round", sans-serif;
+}
 .box {
-  max-width: 420px;
+  max.width: 450px;
   height: 520px;
   margin: 40px auto;
   border-radius: 15px;
@@ -9,7 +12,30 @@
 }
 .search {
   border: none;
-  margin: 10px;
+  margin-top: 10px;
   border-color: transparent;
   background-color: transparent;
+  padding: 0%;
+  max-width: 120px;
+}
+.pin {
+  color: #d50000;
+  font-size: 22px;
+  margin: 8px 0;
+  padding: 0%;
+}
+.weatherIcon {
+  padding: 10px;
+}
+.today {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 0%;
+  padding: 0%;
+}
+#currentDateTime {
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 0%;
+  padding: 0%;
 }

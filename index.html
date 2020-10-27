@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -32,13 +31,17 @@
       src="https://kit.fontawesome.com/38ad0fa815.js"
       crossorigin="anonymous"
     ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container box">
       <div class="row">
-        <div class="col-3">
+        <div class="col-5">
           <form action="#">
             <input
               type="search"
@@ -48,17 +51,17 @@
             />
           </form>
         </div>
-        <div class="col-9">
+        <div class="col-7 pin">
           <i class="fas fa-search-location"></i>
         </div>
       </div>
       <div class="row">
-        <div class="col-2">
-          <img src="#" alt="weather icon" />
+        <div class="col-2 weatherIcon">
+          <img src="media/weather.svg" alt="weather icon" />
         </div>
-        <div class="col-10">
-          <p>Today</p>
-          <p>current date and time</p>
+        <div class="col-10 today">
+          <p class="today">Today</p>
+          <p id="currentDateTime">current date and time</p>
         </div>
       </div>
       <div class="row">
