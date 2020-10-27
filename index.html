@@ -10,11 +10,28 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <script
+      src="https://kit.fontawesome.com/38ad0fa815.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6">
+          <form action="#">
+            <input type="search" placeholder="Type a city" autocomplete="off" />
+          </form>
+        </div>
+        <div class="col-xs-6"><i class="fas fa-search-location"></i></div>
+      </div>
+    </div>
     <script src="app.js"></script>
   </body>
 </html>
