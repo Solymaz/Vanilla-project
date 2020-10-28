@@ -1,28 +1,35 @@
+@media (min-width: 768px) {
+  body {
+    background-color: black;
+  }
+}
 body {
   font-family: "Varela Round", sans-serif;
 }
 .box {
-  max-width: 450px;
-  height: 540px;
-  margin: 30px auto;
+  max-width: 992px;
+  height: 100vh;
   border-radius: 15px;
-  border: solid black;
   background-image: url(media/background.jpg);
   background-size: cover;
-  padding: 8px;
+  background-position: center center;
+  background-attachment: fixed;
+  padding-top: 8px;
 }
 .search {
   border: none;
-  margin-top: 10px;
   border-color: transparent;
   background-color: transparent;
   padding: 0%;
-  max-width: 120px;
+  max-width: 130px;
+}
+.search::placeholder {
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 5px;
 }
 .pin {
   color: #d50000;
   font-size: 22px;
-  margin: 8px 0;
   padding: 0%;
 }
 .today {
@@ -56,6 +63,11 @@ body {
   font-weight: bold;
   font-size: 22px;
 }
+.fixed-bottom {
+  max-width: 992px;
+  margin: 0 auto;
+  padding: 15px;
+}
 .card {
   background: rgba(255, 255, 255, 0.5);
 }
@@ -63,6 +75,5 @@ body {
   padding: 5px;
 }
 .hoursCard {
-  margin-top: 50px;
   margin-bottom: 3px;
 }

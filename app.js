@@ -9,6 +9,7 @@ function searchLocation(event) {
   let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${ApiKey}&units=metric`;
   axios.get(currentApiUrl).then(showCurrentTimeWeather);
   axios.get(futureApiUrl).then(showFutureWeather);
+  document.querySelector(".search").reset();
 }
 function showCurrentTimeWeather(response) {
   document.querySelector(".location").innerHTML = response.data.name;
