@@ -2,7 +2,7 @@ body {
   font-family: "Varela Round", sans-serif;
 }
 .box {
-  max.width: 450px;
+  max-width: 450px;
   height: 540px;
   margin: 30px auto;
   border-radius: 15px;
@@ -53,14 +53,16 @@ body {
   top: -42px;
   font-weight: bold;
 }
-.city {
+.location {
   text-align: center;
   margin-top: -25px;
   font-weight: bold;
+  font-size: 22px;
 }
 .card {
   background: rgba(255, 255, 255, 0.5);
   top: 130px;
+  margin-bottom: 3px;
 }
 .card-body {
   padding: 5px;
