@@ -39,3 +39,21 @@ body {
   margin-top: 0%;
   padding: 0%;
 }
+.currentTemp {
+  text-align: center;
+  margin-top: -10px;
+}
+.currentDegree {
+  font-size: 75px;
+  font-weight: bold;
+}
+.degree {
+  position: relative;
+  top: -42px;
+  font-weight: bold;
+}
+.city {
+  text-align: center;
+  margin-top: -25px;
+  font-weight: bold;
+}
