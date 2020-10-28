@@ -25,9 +25,6 @@ body {
   margin: 8px 0;
   padding: 0%;
 }
-.weatherIcon {
-  padding: 10px;
-}
 .today {
   font-weight: bold;
   font-size: 24px;
@@ -61,9 +58,11 @@ body {
 }
 .card {
   background: rgba(255, 255, 255, 0.5);
-  top: 130px;
-  margin-bottom: 3px;
 }
 .card-body {
   padding: 5px;
+}
+.hoursCard {
+  margin-top: 50px;
+  margin-bottom: 3px;
 }
