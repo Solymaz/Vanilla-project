@@ -3,12 +3,13 @@ body {
 }
 .box {
   max.width: 450px;
-  height: 520px;
-  margin: 40px auto;
+  height: 540px;
+  margin: 30px auto;
   border-radius: 15px;
   border: solid black;
   background-image: url(media/background.jpg);
   background-size: cover;
+  padding: 8px;
 }
 .search {
   border: none;
@@ -56,4 +57,11 @@ body {
   text-align: center;
   margin-top: -25px;
   font-weight: bold;
+}
+.card {
+  background: rgba(255, 255, 255, 0.5);
+  top: 130px;
+}
+.card-body {
+  padding: 5px;
 }
