@@ -69,3 +69,17 @@ function showFutureWeather(response) {
       );
   }
 }
+let liveLocation = document.querySelector(".pin");
+liveLocation.addEventListener("click", getGPS);
+function getGPS() {
+  navigator.geolocation.getCurrentPosition(findLiveLocation);
+}
+function findLiveLocation(GPS) {
+  console.log(GPS);
+  let lat = GPS.coords.latitude;
+  let lon = GPS.coords.longitude;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f2ba4b7c95e0f3e8dedeafe2da9d569f&units=metric`;
+  let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=f2ba4b7c95e0f3e8dedeafe2da9d569f&units=metric`;
+  axios.get(futureApiUrl).then(showFutureWeather);
+  axios.get(apiUrl).then(showCurrentTimeWeather);
+}

@@ -14,14 +14,14 @@ body {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  padding-top: 8px;
+  padding-top: 20px;
 }
 .search {
   border: none;
   border-color: transparent;
   background-color: transparent;
   padding: 0%;
-  max-width: 130px;
+  max-width: 150px;
 }
 .search::placeholder {
   color: rgba(255, 255, 255, 0.9);
@@ -30,13 +30,15 @@ body {
 .pin {
   color: #d50000;
   font-size: 22px;
-  padding: 0%;
 }
 .today {
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 0%;
   padding: 0%;
+}
+.currentDateTime {
+  margin-top: 15px;
 }
 #currentDateTime {
   font-weight: bold;
