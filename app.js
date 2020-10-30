@@ -13,9 +13,13 @@ function searchLocation(event) {
 }
 function showCurrentTimeWeather(response) {
   document.querySelector(".location").innerHTML = response.data.name;
+  celsiusDegree = response.data.main.temp;
   document.querySelector(".currentDegree").innerHTML = Math.round(
-    response.data.main.temp
+    celsiusDegree
   );
+
+  let celsius = document.querySelector("#CTemp");
+  celsius.style = "color: #d50000";
   document.querySelector("#min").innerHTML = `Min: ${Math.round(
     response.data.main.temp_min
   )}° `;
@@ -95,4 +99,25 @@ function findLiveLocation(GPS) {
 function getDay(timeStamp) {
   let day = new Date(timeStamp).getDay();
   return day;
+}
+let celsiusDegree = null;
+
+let convertTempToF = document.querySelector("#FTemp");
+convertTempToF.addEventListener("click", convertTemp1);
+function convertTemp1(event) {
+  let fahrenheitTemp = ((celsiusDegree * 9) / 5 + 32).toFixed(0);
+  document.querySelector("#currentDegree").innerHTML = fahrenheitTemp;
+  event.target.style = " color: #d50000";
+  let celsius = document.querySelector("#CTemp");
+  celsius.style = "";
+}
+let convertTempToC = document.querySelector("#CTemp");
+convertTempToC.addEventListener("click", convertTemp2);
+function convertTemp2(event) {
+  document.querySelector("#currentDegree").innerHTML = Math.round(
+    celsiusDegree
+  );
+  event.target.style = " color: #d50000";
+  let fahrenheit = document.querySelector("#FTemp");
+  fahrenheit.style = "";
 }

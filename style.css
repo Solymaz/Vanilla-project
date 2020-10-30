@@ -16,7 +16,7 @@ body {
   background-position: center center;
 
   padding-top: 20px;
-  box-shadow: 2px 2px 8px 8px #4ea8dd inset;
+  box-shadow: 2px 2px 6px 6px #4ea8dd inset;
 }
 .search {
   border: none;
@@ -67,7 +67,7 @@ body {
   margin-top: -10px;
 }
 .currentDegree {
-  font-size: 85px;
+  font-size: 75px;
   font-weight: bold;
 }
 .degree {
@@ -115,4 +115,11 @@ body {
 .minMax {
   text-align: center;
   font-weight: bold;
+}
+#FTemp:hover {
+  cursor: pointer;
+}
+
+#CTemp:hover {
+  cursor: pointer;
 }
