@@ -7,7 +7,7 @@ body {
   font-family: "Varela Round", sans-serif;
 }
 .box {
-  max-width: 992px;
+  max-width: 800px;
   height: 100vh;
   border-radius: 15px;
   background-image: url(media/background.jpg);
@@ -22,14 +22,21 @@ body {
   background-color: transparent;
   padding: 0%;
   max-width: 150px;
+  display: inline;
 }
 .search::placeholder {
-  color: rgba(255, 255, 255, 0.9);
+  color: antiquewhite;
   padding-left: 5px;
 }
 .pin {
   color: #d50000;
   font-size: 22px;
+  display: inline;
+  transition: all 250ms ease;
+}
+.pin i:hover {
+  cursor: pointer;
+  transform: scale(1.5);
 }
 .today {
   font-weight: bold;
@@ -66,7 +73,7 @@ body {
   font-size: 22px;
 }
 .fixed-bottom {
-  max-width: 992px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 15px;
 }
@@ -78,4 +85,16 @@ body {
 }
 .hoursCard {
   margin-bottom: 3px;
+}
+.comingHours {
+  margin: 0%;
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

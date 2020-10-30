@@ -58,9 +58,9 @@ function showFutureWeather(response) {
     document.querySelector(`#TimeSpan${index}`).innerHTML = formatDate(
       getLocalTime(response.data.city.timezone, response.data.list[index].dt)
     );
-    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = Math.round(
+    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = `${Math.round(
       response.data.list[index].main.temp
-    );
+    )}°`;
     document
       .querySelector(`#TimeSpanIcon${index}`)
       .setAttribute(
