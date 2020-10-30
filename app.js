@@ -16,6 +16,14 @@ function showCurrentTimeWeather(response) {
   document.querySelector(".currentDegree").innerHTML = Math.round(
     response.data.main.temp
   );
+  document.querySelector("#min").innerHTML = `Min: ${Math.round(
+    response.data.main.temp_min
+  )}° `;
+  document.querySelector("#max").innerHTML = `Max: ${Math.round(
+    response.data.main.temp_max
+  )}°`;
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].description;
   document
     .querySelector("#weatherIcon")
     .setAttribute(

@@ -38,19 +38,26 @@ body {
   cursor: pointer;
   transform: scale(1.5);
 }
-.today {
+.Now {
   font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 0%;
   padding: 0%;
-}
-.currentDateTime {
   margin-top: 15px;
 }
-#currentDateTime {
-  font-weight: bold;
-  font-size: 12px;
+.today {
+  font-size: 24px;
+  margin: 0%;
+}
+
+#description {
+  font-size: 20px;
   margin-top: 0%;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+}
+#currentDateTime {
+  font-size: 18px;
+  margin-top: 0%;
+  margin-bottom: 0%;
   padding: 0%;
 }
 .currentTemp {
@@ -58,7 +65,7 @@ body {
   margin-top: -10px;
 }
 .currentDegree {
-  font-size: 75px;
+  font-size: 85px;
   font-weight: bold;
 }
 .degree {
@@ -71,6 +78,7 @@ body {
   margin-top: -25px;
   font-weight: bold;
   font-size: 22px;
+  text-transform: capitalize;
 }
 .fixed-bottom {
   max-width: 800px;
@@ -86,15 +94,18 @@ body {
 .hoursCard {
   margin-bottom: 3px;
 }
-.comingHours {
+.coming {
   margin: 0%;
   font-size: 10px;
   text-align: center;
   font-weight: bold;
 }
-
 .centered {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.minMax {
+  text-align: center;
+  font-weight: bold;
 }

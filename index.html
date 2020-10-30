@@ -51,12 +51,13 @@
         <span class="pin"><i class="fas fa-map-marker-alt"></i></span>
       </form>
       <div class="row currentDateTime">
-        <div class="col-2">
-          <img src="media/weather.svg" id="weatherIcon" alt="weather icon" />
+        <div class="col-2 centered">
+          <img src="media/sunny.svg" id="weatherIcon" alt="weather icon" />
         </div>
-        <div class="col-10 today">
+        <div class="col-10 Now">
           <p class="today">Today</p>
-          <p id="currentDateTime">--:--</p>
+          <p id="currentDateTime"></p>
+          <p id="description"></p>
         </div>
       </div>
       <div class="row currentTemp">
@@ -66,42 +67,43 @@
         </div>
       </div>
       <div class="row">
-        <div class="col location">City Name</div>
+        <div class="col location"></div>
       </div>
+      <p class="minMax"><span id="min"></span><span id="max"></span></p>
 
       <div class="fixed-bottom">
         <div class="card hoursCard">
           <div class="card-body nextHours">
             <div class="row">
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan0">⌚</p>
+                <p class="coming" id="TimeSpan0">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon0" />
-                <p class="comingHours" id="TimeSpanTemp0">🌡</p>
+                <p class="coming" id="TimeSpanTemp0">🌡</p>
               </div>
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan1">⌚</p>
+                <p class="coming" id="TimeSpan1">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon1" />
-                <p class="comingHours" id="TimeSpanTemp1">🌡</p>
+                <p class="coming" id="TimeSpanTemp1">🌡</p>
               </div>
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan2">⌚</p>
+                <p class="coming" id="TimeSpan2">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon2" />
-                <p class="comingHours" id="TimeSpanTemp2">🌡</p>
+                <p class="coming" id="TimeSpanTemp2">🌡</p>
               </div>
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan3">⌚</p>
+                <p class="coming" id="TimeSpan3">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon3" />
-                <p class="comingHours" id="TimeSpanTemp3">🌡</p>
+                <p class="coming" id="TimeSpanTemp3">🌡</p>
               </div>
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan4">⌚</p>
+                <p class="coming" id="TimeSpan4">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon4" />
-                <p class="comingHours" id="TimeSpanTemp4">🌡</p>
+                <p class="coming" id="TimeSpanTemp4">🌡</p>
               </div>
               <div class="col-2 centered">
-                <p class="comingHours" id="TimeSpan5">⌚</p>
+                <p class="coming" id="TimeSpan5">⌚</p>
                 <img src="media/sunny.svg" id="TimeSpanIcon5" />
-                <p class="comingHours" id="TimeSpanTemp5">🌡</p>
+                <p class="coming" id="TimeSpanTemp5">🌡</p>
               </div>
             </div>
           </div>
@@ -109,12 +111,36 @@
         <div class="card">
           <div class="card-body nextDyas">
             <div class="row">
-              <div class="col-2">next day</div>
-              <div class="col-2">next day</div>
-              <div class="col-2">next day</div>
-              <div class="col-2">next day</div>
-              <div class="col-2">next day</div>
-              <div class="col-2">next day</div>
+              <div class="col-2 centered">
+                <p class="coming" id="day0">📅</p>
+                <img src="media/sunny.svg" id="dayIcon0" />
+                <p class="coming" id="comingDaysTemp0">🌡</p>
+              </div>
+              <div class="col-2 centered">
+                <p class="coming" id="day1">📅</p>
+                <img src="media/sunny.svg" id="dayIcon1" />
+                <p class="coming" id="comingDaysTemp1">🌡</p>
+              </div>
+              <div class="col-2 centered">
+                <p class="coming" id="day2">📅</p>
+                <img src="media/sunny.svg" id="dayIcon2" />
+                <p class="coming" id="comingDaysTemp2">🌡</p>
+              </div>
+              <div class="col-2 centered">
+                <p class="coming" id="day3">📅</p>
+                <img src="media/sunny.svg" id="dayIcon3" />
+                <p class="coming" id="comingDaysTemp3">🌡</p>
+              </div>
+              <div class="col-2 centered">
+                <p class="coming" id="day4">📅</p>
+                <img src="media/sunny.svg" id="dayIcon4" />
+                <p class="coming" id="comingDaysTemp4">🌡</p>
+              </div>
+              <div class="col-2 centered">
+                <p class="coming" id="day5">📅</p>
+                <img src="media/sunny.svg" id="dayIcon5" />
+                <p class="coming" id="comingDaysTemp5">🌡</p>
+              </div>
             </div>
           </div>
         </div>
