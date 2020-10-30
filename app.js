@@ -32,6 +32,10 @@ function showCurrentTimeWeather(response) {
     );
   let localTimeStamp = getLocalTime(response.data.timezone, null);
   let dateAtLocation = formatDate(localTimeStamp);
+  let today = getDay(localTimeStamp);
+  for (let index = 1; index < 7; index++) {
+    let day = (today + index) % 7;
+  }
   document.querySelector("#currentDateTime").innerHTML = dateAtLocation;
 }
 
@@ -60,8 +64,6 @@ function formatDate(timeStamp) {
   return `${day} ${hours}:${minutes}`;
 }
 function showFutureWeather(response) {
-  console.log(response);
-
   for (let index = 0; index < 6; index++) {
     document.querySelector(`#TimeSpan${index}`).innerHTML = formatDate(
       getLocalTime(response.data.city.timezone, response.data.list[index].dt)
@@ -83,11 +85,14 @@ function getGPS() {
   navigator.geolocation.getCurrentPosition(findLiveLocation);
 }
 function findLiveLocation(GPS) {
-  console.log(GPS);
   let lat = GPS.coords.latitude;
   let lon = GPS.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f2ba4b7c95e0f3e8dedeafe2da9d569f&units=metric`;
   let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=f2ba4b7c95e0f3e8dedeafe2da9d569f&units=metric`;
   axios.get(futureApiUrl).then(showFutureWeather);
   axios.get(apiUrl).then(showCurrentTimeWeather);
+}
+function getDay(timeStamp) {
+  let day = new Date(timeStamp).getDay();
+  return day;
 }
