@@ -11,6 +11,8 @@ function searchLocation(event) {
   axios.get(futureApiUrl).then(showFutureWeather);
   document.querySelector(".search").reset();
 }
+
+let locationDateTimeStamp = null;
 function showCurrentTimeWeather(response) {
   document.querySelector(".location").innerHTML = response.data.name;
   celsiusDegree = response.data.main.temp;
@@ -39,10 +41,7 @@ function showCurrentTimeWeather(response) {
     );
   let localTimeStamp = getLocalTime(response.data.timezone, null);
   let dateAtLocation = formatDate(localTimeStamp);
-  let today = getDay(localTimeStamp);
-  for (let index = 1; index < 7; index++) {
-    let day = (today + index) % 7;
-  }
+  locationDateTimeStamp = localTimeStamp;
   document.querySelector("#currentDateTime").innerHTML = dateAtLocation;
 }
 
@@ -70,8 +69,34 @@ function formatDate(timeStamp) {
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
+
+function formatDay(timestring) {
+  let date = new Date(Date.parse(timestring));
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+
+function isSameDay(currentTimeStamp) {
+  let localDay = new Date(locationDateTimeStamp).getDay();
+  let currentDay = new Date(currentTimeStamp).getDay();
+  return localDay === currentDay;
+}
+
 function showFutureWeather(response) {
-  for (let index = 0; index < 6; index++) {
+  let comigDaysTemp = [
+    response.data.list[4],
+    response.data.list[12],
+    response.data.list[20],
+    response.data.list[28],
+    response.data.list[36],
+  ];
+
+  let todayTimeStamp = new Date(Date.parse(comigDaysTemp[0].dt_txt));
+  if (isSameDay(todayTimeStamp)) {
+    comigDaysTemp.shift();
+  }
+
+  for (let index = 0; index < 4; index++) {
     document.querySelector(`#TimeSpan${index}`).innerHTML = formatDate(
       getLocalTime(response.data.city.timezone, response.data.list[index].dt)
     );
@@ -88,6 +113,25 @@ function showFutureWeather(response) {
           ? `media/icons/${icons[apiIcon]}.svg`
           : `http://openweathermap.org/img/w/${apiIcon}.png`
       );
+
+    //future days
+    document.querySelector(`#comingDaysTemp${index}`).innerHTML = comigDaysTemp[
+      index
+    ].main.temp.toFixed(0);
+
+    let apiIcon2 = comigDaysTemp[index].weather[0].icon;
+    document
+      .querySelector(`#dayIcon${index}`)
+      .setAttribute(
+        "src",
+        icons[apiIcon2] !== undefined
+          ? `media/icons/${icons[apiIcon2]}.svg`
+          : `http://openweathermap.org/img/w/${apiIcon2}.png`
+      );
+
+    document.querySelector(`#day${index}`).innerHTML = formatDay(
+      comigDaysTemp[index].dt_txt
+    );
   }
 }
 let liveLocation = document.querySelector(".pin");
