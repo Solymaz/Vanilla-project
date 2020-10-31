@@ -28,11 +28,14 @@ function showCurrentTimeWeather(response) {
   )}°`;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
+  let apiIcon = response.data.weather[0].icon;
   document
     .querySelector("#weatherIcon")
     .setAttribute(
       "src",
-      `http://openweathermap.org/img/w/${response.data.weather[0].icon}.png`
+      icons[apiIcon] !== undefined
+        ? `media/icons/${icons[apiIcon]}.svg`
+        : `http://openweathermap.org/img/w/${apiIcon}.png`
     );
   let localTimeStamp = getLocalTime(response.data.timezone, null);
   let dateAtLocation = formatDate(localTimeStamp);
@@ -75,11 +78,15 @@ function showFutureWeather(response) {
     document.querySelector(`#TimeSpanTemp${index}`).innerHTML = `${Math.round(
       response.data.list[index].main.temp
     )}°`;
+
+    let apiIcon = response.data.list[index].weather[0].icon;
     document
       .querySelector(`#TimeSpanIcon${index}`)
       .setAttribute(
         "src",
-        `http://openweathermap.org/img/w/${response.data.list[index].weather[0].icon}.png`
+        icons[apiIcon] !== undefined
+          ? `media/icons/${icons[apiIcon]}.svg`
+          : `http://openweathermap.org/img/w/${apiIcon}.png`
       );
   }
 }
@@ -121,3 +128,21 @@ function convertTemp2(event) {
   let fahrenheit = document.querySelector("#FTemp");
   fahrenheit.style = "";
 }
+let icons = {
+  "01d": "day",
+  "02d": "few-clouds",
+  "03d": "scattered-clouds",
+  "04d": "cloudy",
+  "09d": "shower-rain",
+  "10d": "rain",
+  "11d": "thunder",
+  "13d": "snow",
+  "01n": "night",
+  "02n": "cloudy",
+  "03n": "cloudy",
+  "04n": "cloudy",
+  "09n": "shower-rain",
+  "10n": "rainy",
+  "11n": "thunder",
+  "13n": "snow",
+};
