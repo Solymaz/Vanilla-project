@@ -1,40 +1,74 @@
+let celsiusDegree = null;
+let locationDateTimeStamp = null;
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let icons = {
+  "01d": "day",
+  "02d": "few-clouds",
+  "03d": "scattered-clouds",
+  "04d": "cloudy",
+  "09d": "shower-rain",
+  "10d": "rain",
+  "11d": "thunder",
+  "13d": "snow",
+  "01n": "night",
+  "02n": "cloudy",
+  "03n": "cloudy",
+  "04n": "cloudy",
+  "09n": "shower-rain",
+  "10n": "rainy",
+  "11n": "thunder",
+  "13n": "snow",
+};
+let getLiveLocation = document.querySelector(".pin");
+getLiveLocation.addEventListener("click", getGPS);
+let convertTempToF = document.querySelector("#FTemp");
+convertTempToF.addEventListener("click", function (event) {
+  convertTemp(event, true);
+});
+let convertTempToC = document.querySelector("#CTemp");
+convertTempToC.addEventListener("click", function (event) {
+  convertTemp(event, false);
+});
 let search = document.querySelector(".search");
 search.addEventListener("submit", searchLocation);
+sessionStorage.setItem("degree", "C");
 
 function searchLocation(event) {
   event.preventDefault();
-  let location = document.querySelector("#search").value;
+  let locationValue = document.querySelector("#search").value;
   let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
-  let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${ApiKey}&units=metric`;
-  let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${ApiKey}&units=metric`;
+  let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationValue}&appid=${ApiKey}&units=metric`;
+  let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${locationValue}&appid=${ApiKey}&units=metric`;
   axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
   axios.get(futureApiUrl).then(showFutureWeather);
 }
 
 function showError() {
-  document.querySelector(
-    ".error"
-  ).innerHTML = `The city could not be found💔Check your spelling❗`;
   document.querySelector(".error").style = `display:block`;
 }
 
-let locationDateTimeStamp = null;
-function showCurrentTimeWeather(response) {
+function reset() {
   document.querySelector(".error").style = `display: none`;
   document.querySelector(".search").reset();
 
+  let fahrenheit = document.querySelector("#FTemp");
+  fahrenheit.style = "";
+  sessionStorage.setItem("degree", "C");
+}
+
+function showCurrentTimeWeather(response) {
+  reset();
   document.querySelector(".location").innerHTML = response.data.name;
   celsiusDegree = response.data.main.temp;
   document.querySelector(".currentDegree").innerHTML = Math.round(
     celsiusDegree
   );
-
   let celsius = document.querySelector("#CTemp");
   celsius.style = "color: #d50000";
-  document.querySelector("#min").innerHTML = `Min: ${Math.round(
+  document.querySelector("#min").innerHTML = `${Math.round(
     response.data.main.temp_min
   )}° `;
-  document.querySelector("#max").innerHTML = `Max: ${Math.round(
+  document.querySelector("#max").innerHTML = `${Math.round(
     response.data.main.temp_max
   )}°`;
   document.querySelector("#description").innerHTML =
@@ -52,6 +86,7 @@ function showCurrentTimeWeather(response) {
   let dateAtLocation = formatDate(localTimeStamp);
   locationDateTimeStamp = localTimeStamp;
   document.querySelector("#currentDateTime").innerHTML = dateAtLocation;
+  document.querySelector(".minMax").style = "display: block";
 }
 
 function getLocalTime(timeZone, datetime) {
@@ -74,14 +109,13 @@ function formatDate(timeStamp) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
 
 function formatDay(timestring) {
   let date = new Date(Date.parse(timestring));
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[date.getDay()];
 }
 
@@ -124,9 +158,9 @@ function showFutureWeather(response) {
       );
 
     //future days
-    document.querySelector(`#comingDaysTemp${index}`).innerHTML = comigDaysTemp[
-      index
-    ].main.temp.toFixed(0);
+    document.querySelector(
+      `#comingDaysTemp${index}`
+    ).innerHTML = `${comigDaysTemp[index].main.temp.toFixed(0)}°`;
 
     let apiIcon2 = comigDaysTemp[index].weather[0].icon;
     document
@@ -144,8 +178,7 @@ function showFutureWeather(response) {
   }
   document.querySelector(".fixed-bottom").style = `display: block`;
 }
-let liveLocation = document.querySelector(".pin");
-liveLocation.addEventListener("click", getGPS);
+
 function getGPS() {
   navigator.geolocation.getCurrentPosition(findLiveLocation);
 }
@@ -157,69 +190,66 @@ function findLiveLocation(GPS) {
   axios.get(futureApiUrl).then(showFutureWeather);
   axios.get(apiUrl).then(showCurrentTimeWeather);
 }
-function getDay(timeStamp) {
-  let day = new Date(timeStamp).getDay();
-  return day;
-}
-let celsiusDegree = null;
 
-let convertTempToF = document.querySelector("#FTemp");
-convertTempToF.addEventListener("click", convertTemp1);
-function convertTemp1(event) {
-  let fahrenheitTemp = ((celsiusDegree * 9) / 5 + 32).toFixed(0);
-  document.querySelector("#currentDegree").innerHTML = fahrenheitTemp;
+function convertTemp(event, convertToFahrenheit) {
+  if (
+    sessionStorage.getItem("degree") === "C" &&
+    convertToFahrenheit !== true
+  ) {
+    return;
+  } else if (
+    sessionStorage.getItem("degree") === "F" &&
+    convertToFahrenheit === true
+  ) {
+    return;
+  }
+
+  let convertTempFn = null;
+  if (convertToFahrenheit) {
+    // C -> F
+    convertTempFn = function (tmp) {
+      return ((tmp * 9) / 5 + 32).toFixed(0);
+    };
+    sessionStorage.setItem("degree", "F");
+  } else {
+    // F -> C
+    convertTempFn = function (tmp) {
+      return (((tmp - 32) * 5) / 9).toFixed(0);
+    };
+    sessionStorage.setItem("degree", "C");
+  }
+
+  document.querySelector("#currentDegree").innerHTML = convertTempFn(
+    document.querySelector("#currentDegree").innerHTML
+  );
+
   for (let index = 0; index < 4; index++) {
-    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = fahrenheitTemp;
+    document.querySelector(
+      `#TimeSpanTemp${index}`
+    ).innerHTML = `${convertTempFn(
+      document.querySelector(`#TimeSpanTemp${index}`).innerHTML.replace("°", "")
+    )}°`;
     document.querySelector(
       `#comingDaysTemp${index}`
-    ).innerHTML = fahrenheitTemp;
+    ).innerHTML = `${convertTempFn(
+      document
+        .querySelector(`#comingDaysTemp${index}`)
+        .innerHTML.replace("°", "")
+    )}°`;
   }
-  document.querySelector("#min").innerHTML = `Min:${fahrenheitTemp}°`;
-  document.querySelector("#max").innerHTML = ` Max:${fahrenheitTemp}°`;
+  document.querySelector("#min").innerHTML = `${convertTempFn(
+    document.querySelector("#min").innerHTML.replace("°", "")
+  )}°`;
+  document.querySelector("#max").innerHTML = `${convertTempFn(
+    document.querySelector("#max").innerHTML.replace("°", "")
+  )}°`;
   event.target.style = " color: #d50000";
-  let celsius = document.querySelector("#CTemp");
-  celsius.style = "";
-}
-let convertTempToC = document.querySelector("#CTemp");
-convertTempToC.addEventListener("click", convertTemp2);
-function convertTemp2(event) {
-  document.querySelector("#currentDegree").innerHTML = Math.round(
-    celsiusDegree
-  );
-  for (let index = 0; index < 4; index++) {
-    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = Math.round(
-      celsiusDegree
-    );
-    document.querySelector(`#comingDaysTemp${index}`).innerHTML = Math.round(
-      celsiusDegree
-    );
-  }
-  document.querySelector("#min").innerHTML = `Min:${Math.round(
-    celsiusDegree
-  )}°`;
-  document.querySelector("#max").innerHTML = ` Max:${Math.round(
-    celsiusDegree
-  )}°`;
 
-  event.target.style = " color: #d50000";
-  let fahrenheit = document.querySelector("#FTemp");
-  fahrenheit.style = "";
+  if (convertToFahrenheit) {
+    let celsius = document.querySelector("#CTemp");
+    celsius.style = "";
+  } else {
+    let fahrenheit = document.querySelector("#FTemp");
+    fahrenheit.style = "";
+  }
 }
-let icons = {
-  "01d": "day",
-  "02d": "few-clouds",
-  "03d": "scattered-clouds",
-  "04d": "cloudy",
-  "09d": "shower-rain",
-  "10d": "rain",
-  "11d": "thunder",
-  "13d": "snow",
-  "01n": "night",
-  "02n": "cloudy",
-  "03n": "cloudy",
-  "04n": "cloudy",
-  "09n": "shower-rain",
-  "10n": "rainy",
-  "11n": "thunder",
-  "13n": "snow",
-};

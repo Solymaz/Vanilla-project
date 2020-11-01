@@ -71,12 +71,12 @@ body {
 }
 .degree {
   position: relative;
-  top: -42px; /* Can you accomplish this styling without negative values? Generally we want to avoid negative values in CSS */
+  top: -42px;
   font-weight: bold;
 }
 .location {
   text-align: center;
-  margin-top: -25px; /* Can you accomplish this styling without negative values? Generally we want to avoid negative values in CSS */
+  margin-top: -25px;
   font-weight: bold;
   font-size: 22px;
   text-transform: capitalize;
@@ -115,12 +115,9 @@ body {
 .minMax {
   text-align: center;
   font-weight: bold;
+  display: none;
 }
-#FTemp:hover {
-  cursor: pointer;
-}
-
-/* This is the exactly the same styling as the previous one, maybe you could combine them */
+#FTemp:hover,
 #CTemp:hover {
   cursor: pointer;
 }
