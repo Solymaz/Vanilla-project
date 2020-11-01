@@ -7,6 +7,7 @@ body {
   font-family: "Varela Round", sans-serif;
   background-color: rgb(78, 168, 221);
 }
+
 .box {
   max-width: 500px;
   height: 100vh;
@@ -14,7 +15,6 @@ body {
   background-image: url(media/background.jpg);
   background-size: cover;
   background-position: center center;
-
   padding-top: 20px;
   box-shadow: 2px 2px 6px 6px #4ea8dd inset;
 }
@@ -71,12 +71,12 @@ body {
 }
 .degree {
   position: relative;
-  top: -42px;
+  top: -42px; /* Can you accomplish this styling without negative values? Generally we want to avoid negative values in CSS */
   font-weight: bold;
 }
 .location {
   text-align: center;
-  margin-top: -25px;
+  margin-top: -25px; /* Can you accomplish this styling without negative values? Generally we want to avoid negative values in CSS */
   font-weight: bold;
   font-size: 22px;
   text-transform: capitalize;
@@ -120,6 +120,7 @@ body {
   cursor: pointer;
 }
 
+/* This is the exactly the same styling as the previous one, maybe you could combine them */
 #CTemp:hover {
   cursor: pointer;
 }
@@ -131,6 +132,7 @@ body {
 }
 .github {
   display: block;
+  padding: 5px;
 }
 .github:hover {
   color: #d50000;
