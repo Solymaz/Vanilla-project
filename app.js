@@ -7,13 +7,22 @@ function searchLocation(event) {
   let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
   let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${ApiKey}&units=metric`;
   let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${ApiKey}&units=metric`;
-  axios.get(currentApiUrl).then(showCurrentTimeWeather);
+  axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
   axios.get(futureApiUrl).then(showFutureWeather);
-  document.querySelector(".search").reset();
+}
+
+function showError() {
+  document.querySelector(
+    ".error"
+  ).innerHTML = `The city could not be found💔Check your spelling❗`;
+  document.querySelector(".error").style = `display:block`;
 }
 
 let locationDateTimeStamp = null;
 function showCurrentTimeWeather(response) {
+  document.querySelector(".error").style = `display: none`;
+  document.querySelector(".search").reset();
+
   document.querySelector(".location").innerHTML = response.data.name;
   celsiusDegree = response.data.main.temp;
   document.querySelector(".currentDegree").innerHTML = Math.round(

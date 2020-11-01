@@ -22,13 +22,12 @@ body {
   border: none;
   border-color: transparent;
   background-color: transparent;
-  padding: 0%;
   max-width: 150px;
+  padding-left: 5px;
   display: inline;
 }
 .search::placeholder {
   color: white;
-  padding-left: 5px;
 }
 .pin {
   color: #d50000;
@@ -122,4 +121,10 @@ body {
 
 #CTemp:hover {
   cursor: pointer;
+}
+
+.error {
+  display: none;
+  font-size: 10px;
+  text-align: center;
 }
