@@ -158,6 +158,14 @@ convertTempToF.addEventListener("click", convertTemp1);
 function convertTemp1(event) {
   let fahrenheitTemp = ((celsiusDegree * 9) / 5 + 32).toFixed(0);
   document.querySelector("#currentDegree").innerHTML = fahrenheitTemp;
+  for (let index = 0; index < 4; index++) {
+    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = fahrenheitTemp;
+    document.querySelector(
+      `#comingDaysTemp${index}`
+    ).innerHTML = fahrenheitTemp;
+  }
+  document.querySelector("#min").innerHTML = `Min:${fahrenheitTemp}°`;
+  document.querySelector("#max").innerHTML = ` Max:${fahrenheitTemp}°`;
   event.target.style = " color: #d50000";
   let celsius = document.querySelector("#CTemp");
   celsius.style = "";
@@ -168,6 +176,21 @@ function convertTemp2(event) {
   document.querySelector("#currentDegree").innerHTML = Math.round(
     celsiusDegree
   );
+  for (let index = 0; index < 4; index++) {
+    document.querySelector(`#TimeSpanTemp${index}`).innerHTML = Math.round(
+      celsiusDegree
+    );
+    document.querySelector(`#comingDaysTemp${index}`).innerHTML = Math.round(
+      celsiusDegree
+    );
+  }
+  document.querySelector("#min").innerHTML = `Min:${Math.round(
+    celsiusDegree
+  )}°`;
+  document.querySelector("#max").innerHTML = ` Max:${Math.round(
+    celsiusDegree
+  )}°`;
+
   event.target.style = " color: #d50000";
   let fahrenheit = document.querySelector("#FTemp");
   fahrenheit.style = "";
