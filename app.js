@@ -142,6 +142,7 @@ function showFutureWeather(response) {
       comigDaysTemp[index].dt_txt
     );
   }
+  document.querySelector(".fixed-bottom").style = `display: block`;
 }
 let liveLocation = document.querySelector(".pin");
 liveLocation.addEventListener("click", getGPS);
