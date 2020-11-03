@@ -31,6 +31,12 @@ search.addEventListener("submit", searchLocation);
 //deafult temperature is shown on celsuis
 sessionStorage.setItem("degree", "C");
 
+//fetch IP address
+axios
+  .get("https://api.ipify.org/?format=json")
+  .then(fetchCityByIP)
+  .catch(getDefaultLocation);
+
 //convert temperature C<->F when user clicks on C°/F°
 let fTemperatureElement = document.querySelector("#FTemp");
 fTemperatureElement.addEventListener("click", function (event) {
@@ -40,6 +46,16 @@ let cTemperatureElement = document.querySelector("#CTemp");
 cTemperatureElement.addEventListener("click", function (event) {
   convertTemp(event, false);
 });
+
+// Fetch city from ip and call weather info based on the response
+function fetchCityByIP(response) {
+  axios
+    .get(
+      `http://api.ipstack.com/${response.data.ip}?access_key=9bc5de24983079b86f7f6a4cab684cea`
+    )
+    .then(getLocation)
+    .catch(getDefaultLocation);
+}
 
 function getLocalTime(timeZone, datetime) {
   let now = new Date();
@@ -85,6 +101,25 @@ function searchLocation(event) {
   axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
   axios.get(futureApiUrl).then(showFutureWeather);
 }
+//get the current and future weather data for the location of the city given
+function getLocation(response) {
+  let city = response.data.city;
+  let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
+  let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${ApiKey}&units=metric`;
+  let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}&units=metric`;
+  axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
+  axios.get(futureApiUrl).then(showFutureWeather);
+}
+//get the current and future weather data for the location of default city (Stockholm)
+function getDefaultLocation() {
+  let city = "Stockholm";
+  let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
+  let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${ApiKey}&units=metric`;
+  let futureApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}&units=metric`;
+  axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
+  axios.get(futureApiUrl).then(showFutureWeather);
+}
+
 //show the error
 function showError() {
   document.querySelector(".error").style = `display:block`;
