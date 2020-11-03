@@ -3,12 +3,12 @@
   "description": "Weather forecast",
   "icons": [
     {
-      "src": "appIcon192.png",
+      "src": "/media/appIcon192.jpg",
       "type": "image/png",
       "sizes": "192x192"
     },
       {
-      "src": "appIcon512.png",
+      "src": "/media/appIcon512.jpg",
       "type": "image/png",
       "sizes": "512x512"
     }
