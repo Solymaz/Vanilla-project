@@ -78,7 +78,6 @@ function isSameDay(currentTimeStamp) {
 //get the current and future weather data for the location of the user's choice
 function searchLocation(event) {
   event.preventDefault();
-  event.target.blur();
   let locationValue = document.querySelector("#search").value;
   let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
   let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationValue}&appid=${ApiKey}&units=metric`;
@@ -92,6 +91,7 @@ function showError() {
 }
 //reset the search box, hide the error, remove the style from fahrenheit element and set degree to celsius
 function reset() {
+  document.querySelector("#search").blur();
   document.querySelector(".error").style = `display: none`;
   document.querySelector(".search").reset();
   let fahrenheit = document.querySelector("#FTemp");
