@@ -78,6 +78,7 @@ function isSameDay(currentTimeStamp) {
 //get the current and future weather data for the location of the user's choice
 function searchLocation(event) {
   event.preventDefault();
+  event.target.blur();
   let locationValue = document.querySelector("#search").value;
   let ApiKey = `f2ba4b7c95e0f3e8dedeafe2da9d569f`;
   let currentApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationValue}&appid=${ApiKey}&units=metric`;
