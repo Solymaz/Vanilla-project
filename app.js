@@ -219,6 +219,9 @@ function showFutureWeather(response) {
       comigDaysTemp[index].dt_txt
     );
   }
+  document.querySelector(
+    ".country"
+  ).innerHTML = `/${response.data.city.country}`;
   document.querySelector(".fixed-bottom").style = `display: block`;
 }
 //get the user's live location data

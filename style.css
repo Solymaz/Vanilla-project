@@ -73,13 +73,16 @@ body {
   font-size: 22px;
   text-shadow: 0 0 0.15em white;
 }
-.location {
-  text-align: center;
-  margin-top: -25px;
+.location,
+.country {
   font-weight: bold;
   font-size: 26px;
   text-transform: capitalize;
   text-shadow: 0 0 0.15em white;
+}
+#location {
+  margin-top: -27px;
+  text-align: center;
 }
 .fixed-bottom {
   max-width: 500px;
