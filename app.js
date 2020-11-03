@@ -65,7 +65,8 @@ function formatDate(timeStamp) {
 }
 //show days in three first letters format e.g. "Fri"
 function formatDay(timestring) {
-  let date = new Date(Date.parse(timestring));
+  let timeStamp = Date.parse(timestring.replace(/-/g, "/"));
+  let date = new Date(timeStamp);
   return days[date.getDay()];
 }
 //check if the current day is the same day as the first day of the coming days' forecast which idealy should be tomorrow
