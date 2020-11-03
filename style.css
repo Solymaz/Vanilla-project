@@ -63,21 +63,21 @@ body {
 .currentDegree {
   font-size: 80px;
   font-weight: bold;
-  text-shadow: 0 0 0.15em white;
+  text-shadow: 0 0 4px white;
 }
 .degree {
   position: relative;
   top: -42px;
   font-weight: bold;
   font-size: 22px;
-  text-shadow: 0 0 0.15em white;
+  text-shadow: 0 0 4px white;
 }
 .location,
 .country {
   font-weight: bold;
   font-size: 26px;
   text-transform: capitalize;
-  text-shadow: 0 0 0.15em white;
+  text-shadow: 0 0 4px white;
 }
 #location {
   margin-top: -27px;
@@ -119,6 +119,7 @@ body {
   font-weight: bold;
   display: none;
   text-shadow: 0 0 0.1em white;
+  font-size: 17px;
 }
 #FTemp:hover,
 #CTemp:hover {
@@ -133,7 +134,7 @@ body {
   display: block;
   color: rgb(32, 32, 119);
   padding-bottom: 4px;
-  padding-left: 4px;
+  padding-left: 6px;
 }
 .github:hover {
   color: #d50000;
