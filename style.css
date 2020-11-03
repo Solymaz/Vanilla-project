@@ -53,13 +53,12 @@ body {
 }
 #currentDateTime {
   font-size: 16px;
-  margin-top: 0%;
-  margin-bottom: 0%;
+  margin: 0%;
   padding: 0%;
 }
 .currentTemp {
   text-align: center;
-  margin-top: -10px;
+  margin-top: -12px;
 }
 .currentDegree {
   font-size: 80px;
@@ -133,8 +132,8 @@ body {
 .github {
   display: block;
   color: rgb(32, 32, 119);
-  padding-bottom: 0%;
-  padding-left: 0%;
+  padding-bottom: 4px;
+  padding-left: 4px;
 }
 .github:hover {
   color: #d50000;
