@@ -19,20 +19,62 @@ let icons = {
   "11n": "thunder",
   "13n": "snow",
 };
+
+//search fot the users' live location when they click on pin
 let getLiveLocation = document.querySelector(".pin");
 getLiveLocation.addEventListener("click", getGPS);
-let convertTempToF = document.querySelector("#FTemp");
-convertTempToF.addEventListener("click", function (event) {
-  convertTemp(event, true);
-});
-let convertTempToC = document.querySelector("#CTemp");
-convertTempToC.addEventListener("click", function (event) {
-  convertTemp(event, false);
-});
+
+//search for the city that the user type in the search box
 let search = document.querySelector(".search");
 search.addEventListener("submit", searchLocation);
+
+//deafult temperature is shown on celsuis
 sessionStorage.setItem("degree", "C");
 
+//convert temperature C<->F when user clicks on C°/F°
+let fTemperatureElement = document.querySelector("#FTemp");
+fTemperatureElement.addEventListener("click", function (event) {
+  convertTemp(event, true);
+});
+let cTemperatureElement = document.querySelector("#CTemp");
+cTemperatureElement.addEventListener("click", function (event) {
+  convertTemp(event, false);
+});
+
+function getLocalTime(timeZone, datetime) {
+  let now = new Date();
+  if (datetime !== null) {
+    now = new Date(datetime * 1000);
+  }
+  let timeZoneOffsetInMs = now.getTimezoneOffset() * 60 * 1000;
+  let timeZoneInMs = timeZone * 1000;
+  return now.getTime() + timeZoneOffsetInMs + timeZoneInMs;
+}
+//show the time in hh:mm format
+function formatDate(timeStamp) {
+  let date = new Date(timeStamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
+//show days in three first letters format e.g. "Fri"
+function formatDay(timestring) {
+  let date = new Date(Date.parse(timestring));
+  return days[date.getDay()];
+}
+//check if the current day is the same day as the first day of the coming days' forecast which idealy should be tomorrow
+function isSameDay(currentTimeStamp) {
+  let localDay = new Date(locationDateTimeStamp).getDay();
+  let currentDay = new Date(currentTimeStamp).getDay();
+  return localDay === currentDay;
+}
+//get the current and future weather data for the location of the user's choice
 function searchLocation(event) {
   event.preventDefault();
   let locationValue = document.querySelector("#search").value;
@@ -42,20 +84,20 @@ function searchLocation(event) {
   axios.get(currentApiUrl).then(showCurrentTimeWeather).catch(showError);
   axios.get(futureApiUrl).then(showFutureWeather);
 }
-
+//show the error
 function showError() {
   document.querySelector(".error").style = `display:block`;
 }
-
+//reset the search box, hide the error, remove the style from fahrenheit element and set degree to celsius
 function reset() {
   document.querySelector(".error").style = `display: none`;
   document.querySelector(".search").reset();
-
   let fahrenheit = document.querySelector("#FTemp");
   fahrenheit.style = "";
   sessionStorage.setItem("degree", "C");
 }
-
+/*show the location's name, current, min and max temperature, show the weather description, highlight the celsius degree, 
+show the weather icon, show the local time and date*/
 function showCurrentTimeWeather(response) {
   reset();
   document.querySelector(".location").innerHTML = response.data.name;
@@ -73,12 +115,13 @@ function showCurrentTimeWeather(response) {
   )}°`;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
+
   let apiIcon = response.data.weather[0].icon;
   document
     .querySelector("#weatherIcon")
     .setAttribute(
       "src",
-      icons[apiIcon] !== undefined
+      icons[apiIcon]
         ? `media/icons/${icons[apiIcon]}.svg`
         : `http://openweathermap.org/img/w/${apiIcon}.png`
     );
@@ -88,57 +131,9 @@ function showCurrentTimeWeather(response) {
   document.querySelector("#currentDateTime").innerHTML = dateAtLocation;
   document.querySelector(".minMax").style = "display: block";
 }
-
-function getLocalTime(timeZone, datetime) {
-  let now = new Date();
-  if (datetime !== null) {
-    now = new Date(datetime * 1000);
-  }
-  let timeZoneOffsetInMs = now.getTimezoneOffset() * 60 * 1000;
-  let timeZoneInMs = timeZone * 1000;
-  return now.getTime() + timeZoneOffsetInMs + timeZoneInMs;
-}
-
-function formatDate(timeStamp) {
-  let date = new Date(timeStamp);
-  let hours = date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  let day = days[date.getDay()];
-  return `${day} ${hours}:${minutes}`;
-}
-
-function formatDay(timestring) {
-  let date = new Date(Date.parse(timestring));
-  return days[date.getDay()];
-}
-
-function isSameDay(currentTimeStamp) {
-  let localDay = new Date(locationDateTimeStamp).getDay();
-  let currentDay = new Date(currentTimeStamp).getDay();
-  return localDay === currentDay;
-}
-
+//show coming hours weather forecast, time and weather icon- show the next 4 days weather forecast, day and weather icon
 function showFutureWeather(response) {
-  let comigDaysTemp = [
-    response.data.list[4],
-    response.data.list[12],
-    response.data.list[20],
-    response.data.list[28],
-    response.data.list[36],
-  ];
-
-  let todayTimeStamp = new Date(Date.parse(comigDaysTemp[0].dt_txt));
-  if (isSameDay(todayTimeStamp)) {
-    comigDaysTemp.shift();
-  }
-
+  //future hours
   for (let index = 0; index < 4; index++) {
     document.querySelector(`#TimeSpan${index}`).innerHTML = formatDate(
       getLocalTime(response.data.city.timezone, response.data.list[index].dt)
@@ -152,12 +147,23 @@ function showFutureWeather(response) {
       .querySelector(`#TimeSpanIcon${index}`)
       .setAttribute(
         "src",
-        icons[apiIcon] !== undefined
+        icons[apiIcon]
           ? `media/icons/${icons[apiIcon]}.svg`
           : `http://openweathermap.org/img/w/${apiIcon}.png`
       );
 
     //future days
+    let comigDaysTemp = [
+      response.data.list[4],
+      response.data.list[12],
+      response.data.list[20],
+      response.data.list[28],
+      response.data.list[36],
+    ];
+    let todayTimeStamp = new Date(Date.parse(comigDaysTemp[0].dt_txt));
+    if (isSameDay(todayTimeStamp)) {
+      comigDaysTemp.shift();
+    }
     document.querySelector(
       `#comingDaysTemp${index}`
     ).innerHTML = `${comigDaysTemp[index].main.temp.toFixed(0)}°`;
@@ -167,7 +173,7 @@ function showFutureWeather(response) {
       .querySelector(`#dayIcon${index}`)
       .setAttribute(
         "src",
-        icons[apiIcon2] !== undefined
+        icons[apiIcon2]
           ? `media/icons/${icons[apiIcon2]}.svg`
           : `http://openweathermap.org/img/w/${apiIcon2}.png`
       );
@@ -178,10 +184,11 @@ function showFutureWeather(response) {
   }
   document.querySelector(".fixed-bottom").style = `display: block`;
 }
-
+//get the user's live location data
 function getGPS() {
   navigator.geolocation.getCurrentPosition(findLiveLocation);
 }
+//get the current and future weather data of the user's live location
 function findLiveLocation(GPS) {
   let lat = GPS.coords.latitude;
   let lon = GPS.coords.longitude;
@@ -190,11 +197,12 @@ function findLiveLocation(GPS) {
   axios.get(futureApiUrl).then(showFutureWeather);
   axios.get(apiUrl).then(showCurrentTimeWeather);
 }
-
+/*convert all temperatures to Fahrenheit if it is not already on Fahrenheit/convert all temperature to celsius if it is not already on celsius,
+show the active degree by changing the C° or F° color to red*/
 function convertTemp(event, convertToFahrenheit) {
   if (
     sessionStorage.getItem("degree") === "C" &&
-    convertToFahrenheit !== true
+    convertToFahrenheit === false
   ) {
     return;
   } else if (

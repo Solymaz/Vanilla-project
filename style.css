@@ -6,6 +6,7 @@
 body {
   font-family: "Varela Round", sans-serif;
   background-color: rgb(78, 168, 221);
+  user-select: none;
 }
 
 .box {
@@ -56,7 +57,7 @@ body {
   text-transform: capitalize;
 }
 #currentDateTime {
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 0%;
   margin-bottom: 0%;
   padding: 0%;
@@ -130,6 +131,7 @@ body {
 .github {
   display: block;
   padding: 5px;
+  color: rgb(32, 32, 119);
 }
 .github:hover {
   color: #d50000;
