@@ -4,12 +4,12 @@
   "icons": [
     {
       "src": "/media/appIcon192.jpg",
-      "type": "image/png",
+      "type": "image/jpg",
       "sizes": "192x192"
     },
       {
       "src": "/media/appIcon512.jpg",
-      "type": "image/png",
+      "type": "image/jpg",
       "sizes": "512x512"
     }
     ],
