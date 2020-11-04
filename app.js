@@ -1,5 +1,19 @@
 let celsiusDegree = null;
 let locationDateTimeStamp = null;
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Agu",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let icons = {
   "01d": "day",
@@ -19,6 +33,26 @@ let icons = {
   "11n": "thunder",
   "13n": "snow",
 };
+function nth(d) {
+  if (d > 3 && d < 21) return "th";
+  switch (d % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
+}
+
+//show current date
+document.querySelector(".todayDate").innerHTML = `(${
+  days[new Date().getDay()]
+} ${new Date().getDate()}${nth(new Date().getDate())} ${
+  months[new Date().getMonth()]
+})`;
 
 //search fot the users' live location when they click on pin
 let getLiveLocation = document.querySelector(".pin");
@@ -130,7 +164,7 @@ function reset() {
   document.querySelector(".error").style = `display: none`;
   document.querySelector(".search").reset();
   let fahrenheit = document.querySelector("#FTemp");
-  fahrenheit.style = "";
+  fahrenheit.style = "color: #d50000";
   sessionStorage.setItem("degree", "C");
 }
 /*show the location's name, current, min and max temperature, show the weather description, show the humidity and wind speed
@@ -144,7 +178,7 @@ function showCurrentTimeWeather(response) {
     celsiusDegree
   );
   let celsius = document.querySelector("#CTemp");
-  celsius.style = "color: #d50000";
+  celsius.style = "";
   document.querySelector("#min").innerHTML = `Min: ${Math.round(
     response.data.main.temp_min
   )}° `;
@@ -296,13 +330,13 @@ function convertTemp(event, convertToFahrenheit) {
   document.querySelector("#max").innerHTML = `${convertTempFn(
     document.querySelector("#max").innerHTML.replace("°", "")
   )}°`;
-  event.target.style = " color: #d50000";
+  event.target.style = "";
 
   if (convertToFahrenheit) {
     let celsius = document.querySelector("#CTemp");
-    celsius.style = "";
+    celsius.style = "color: #d50000";
   } else {
     let fahrenheit = document.querySelector("#FTemp");
-    fahrenheit.style = "";
+    fahrenheit.style = "color: #d50000";
   }
 }
