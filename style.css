@@ -99,6 +99,7 @@ body {
 }
 .card-body {
   padding: 5px;
+  line-height: 0.9;
 }
 .hoursCard {
   margin-bottom: 3px;
@@ -114,12 +115,13 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.minMax {
+.minMax,
+.windSpeed,
+.humidity {
   text-align: center;
   font-weight: bold;
-  display: none;
   text-shadow: 0 0 0.1em white;
-  font-size: 17px;
+  margin: 0%;
 }
 #FTemp:hover,
 #CTemp:hover {

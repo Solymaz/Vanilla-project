@@ -133,9 +133,10 @@ function reset() {
   fahrenheit.style = "";
   sessionStorage.setItem("degree", "C");
 }
-/*show the location's name, current, min and max temperature, show the weather description, highlight the celsius degree, 
-show the weather icon, show the local time and date*/
+/*show the location's name, current, min and max temperature, show the weather description, show the humidity and wind speed
+highlight the celsius degree, show the weather icon, show the local time and date*/
 function showCurrentTimeWeather(response) {
+  console.log(response);
   reset();
   document.querySelector(".location").innerHTML = response.data.name;
   celsiusDegree = response.data.main.temp;
@@ -144,15 +145,20 @@ function showCurrentTimeWeather(response) {
   );
   let celsius = document.querySelector("#CTemp");
   celsius.style = "color: #d50000";
-  document.querySelector("#min").innerHTML = `${Math.round(
+  document.querySelector("#min").innerHTML = `Min: ${Math.round(
     response.data.main.temp_min
   )}° `;
-  document.querySelector("#max").innerHTML = `${Math.round(
+  document.querySelector("#max").innerHTML = `Max: ${Math.round(
     response.data.main.temp_max
   )}°`;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
-
+  document.querySelector(".windSpeed").innerHTML = `Wind Speed: ${Math.round(
+    response.data.wind.speed
+  )} km/h`;
+  document.querySelector(
+    ".humidity"
+  ).innerHTML = `Humidity: ${response.data.main.humidity} %`;
   let apiIcon = response.data.weather[0].icon;
   document
     .querySelector("#weatherIcon")
@@ -166,7 +172,6 @@ function showCurrentTimeWeather(response) {
   let dateAtLocation = formatDate(localTimeStamp);
   locationDateTimeStamp = localTimeStamp;
   document.querySelector("#currentDateTime").innerHTML = dateAtLocation;
-  document.querySelector(".minMax").style = "display: block";
 }
 //show coming hours weather forecast, time and weather icon- show the next 4 days weather forecast, day and weather icon
 function showFutureWeather(response) {
