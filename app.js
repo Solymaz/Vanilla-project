@@ -170,7 +170,6 @@ function reset() {
 /*show the location's name, current, min and max temperature, show the weather description, show the humidity and wind speed
 highlight the celsius degree, show the weather icon, show the local time and date*/
 function showCurrentTimeWeather(response) {
-  console.log(response);
   reset();
   document.querySelector(".location").innerHTML = response.data.name;
   celsiusDegree = response.data.main.temp;
@@ -179,12 +178,13 @@ function showCurrentTimeWeather(response) {
   );
   let celsius = document.querySelector("#CTemp");
   celsius.style = "";
-  document.querySelector("#min").innerHTML = `Min: ${Math.round(
+  document.querySelector("#min").innerHTML = `${Math.round(
     response.data.main.temp_min
   )}° `;
-  document.querySelector("#max").innerHTML = `Max: ${Math.round(
+  document.querySelector("#max").innerHTML = `${Math.round(
     response.data.main.temp_max
   )}°`;
+  document.querySelector(".minMax").style = "display: block";
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
   document.querySelector(".windSpeed").innerHTML = `Wind Speed: ${Math.round(
